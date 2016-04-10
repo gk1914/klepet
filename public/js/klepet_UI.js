@@ -4,7 +4,7 @@ function divElementEnostavniTekst(sporocilo) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
-    return $('<div style="font-weight: bold;"></div>').text(sporocilo);
+    return $('<div style="font-weight: bold;"></div>').html(sporocilo);
   }
 }
 
@@ -15,6 +15,7 @@ function divElementHtmlTekst(sporocilo) {
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
   sporocilo = dodajSmeske(sporocilo);
+  sporocilo = dodajVideo(sporocilo);
   var sistemskoSporocilo;
 
   if (sporocilo.charAt(0) == '/') {
@@ -129,5 +130,23 @@ function dodajSmeske(vhodnoBesedilo) {
       "<img src='http://sandbox.lavbic.net/teaching/OIS/gradivo/" +
       preslikovalnaTabela[smesko] + "' />");
   }
+  return vhodnoBesedilo;
+}
+
+function dodajVideo(vhodnoBesedilo) {
+  var split = vhodnoBesedilo.split(" ");
+  var slike = [];
+  var slika = "";
+  var videoId = "";
+  for (var i in split) {
+    slika = split[i].match(new RegExp('https:\/\/www\.youtube\.com\/watch','gi'));
+    if (slika) {
+      videoId = replace(new RegExp('https:\/\/www\.youtube\.com\/watch\?=v','i'), "");
+      slike.push(videoId);
+    }
+  }
+  for (var i in slike)
+    vhodnoBesedilo = "krneki";
+    //vhodnoBesedilo = vhodnoBesedilo.replace(new RegExp(slike[i], 'gi'), "<iframe src='" + slike[i] + "'/>");
   return vhodnoBesedilo;
 }
