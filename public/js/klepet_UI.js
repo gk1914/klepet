@@ -147,3 +147,4 @@ function dodajSlike(vhodnoBesedilo) {
     vhodnoBesedilo = vhodnoBesedilo.replace(new RegExp(slike[i], 'gi'), "<img src='" + slike[i] + "' class='slike'/>");
   return vhodnoBesedilo;
 }
+
